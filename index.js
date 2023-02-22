@@ -18,16 +18,12 @@ const setRandomColor = () => {
         document.body.style.color = 'white'
             btn.classList.remove('btn-outline-dark')
             btn.classList.add('btn-outline-light')
-        btnCalc.classList.remove('btn-outline-dark')
-        btnCalc.classList.add('btn-outline-light')
         clear.classList.remove('btn-outline-dark')
         clear.classList.add('btn-outline-light')
     } else {
         document.body.style.color = 'black'
         btn.classList.remove('btn-outline-light')
         btn.classList.add('btn-outline-dark')
-        btnCalc.classList.remove('btn-outline-light')
-        btnCalc.classList.add('btn-outline-dark')
         clear.classList.remove('btn-outline-light')
         clear.classList.add('btn-outline-dark')
     }
@@ -35,18 +31,9 @@ const setRandomColor = () => {
 
 btn.addEventListener('click', () => setRandomColor())
 
-const calculateLetters = text => text.length
-const calculateWords = text => text.trim().split(' ').filter(e => e !== '').length
-// const calculateSentences = text => text.trim().split('.').length - 1
-const calculateSentences = text => {
-    let count = 0
-    for (let char of text) {
-        if (char === '.' || char === '?'|| char === '!') {
-            count++
-        }
-    }
-    return count
-}
+const calculateLetters = text => text.split(/[A-Za-z]/).length - 1
+const calculateWords = text => text.split(/\S+/).length - 1
+const calculateSentences = text => text.split(/[/!?.]+/).length - 1
 
 const input = document.getElementById('input')
 
@@ -60,8 +47,6 @@ const calculateAll = (v) => {
     sentenceP.innerHTML = calculateSentences(v)
 }
 
-btnCalc.onclick = () => calculateAll(input.value)
-
 clear.onclick = () => {
     input.value = ''
     letterP.innerHTML = ''
@@ -69,7 +54,7 @@ clear.onclick = () => {
     sentenceP.innerHTML = ''
 }
 
-
+input.addEventListener('beforeinput', () => calculateAll(input.value))
 
 
 
