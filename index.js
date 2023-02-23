@@ -31,9 +31,16 @@ const setRandomColor = () => {
 
 btn.addEventListener('click', () => setRandomColor())
 
+
+
+
 const calculateLetters = text => text.split(/[A-Za-z]/).length - 1
-const calculateWords = text => text.split(/\S+/).length - 1
-const calculateSentences = text => text.split(/[/!?.]+/).length - 1
+const calculateWords = text => text.split(/\b[a-zA-z]+\b[!?.]*/).length - 1
+const calculateSentences = text => text.split(/\b[a-zA-Z]+[!?.]+/).length - 1
+
+
+
+
 
 const input = document.getElementById('input')
 
@@ -54,7 +61,7 @@ clear.onclick = () => {
     sentenceP.innerHTML = ''
 }
 
-input.addEventListener('beforeinput', () => calculateAll(input.value))
+input.addEventListener('input', () => calculateAll(input.value))
 
 
 
